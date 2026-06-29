@@ -51,9 +51,6 @@ class MyBot(commands.Bot):
     async def on_ready(self, event: ReadyEvent) -> None:
         print(f'Logged in as {event.me.tag}!')
 
-    async def on_close(self, event: LogoutEvent) -> None:
-        print("Closing !!!!")
-
     # Register all modules located in the mods directory
     async def setup_hook(self) -> None:
         # Obtain all files located in mods folder
