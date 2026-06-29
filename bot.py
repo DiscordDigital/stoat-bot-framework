@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
+from asyncio import run as asyncio_run
 from dotenv import load_dotenv
 from inspect import isclass
 from os import getenv, listdir, path
 from shutil import copy
-from stoat import Client, MessageCreateEvent, ReadyEvent
+from stoat import Client, MessageCreateEvent, ReadyEvent, LogoutEvent
 from stoat.ext import commands
 
 # Check if .env file exists, if not copy from template
@@ -41,11 +42,17 @@ if modvars:
         # Insert variable into dictionary
         modvarskw[var] = getenv(var)
 
+# Add a Client to modvarskw
+modvarskw["Client"] = Client(token=token)
+
 # Create MyBot class to register all modules
 class MyBot(commands.Bot):
     # Print bot name to console
     async def on_ready(self, event: ReadyEvent) -> None:
         print(f'Logged in as {event.me.tag}!')
+
+    async def on_close(self, event: LogoutEvent) -> None:
+        print("Closing !!!!")
 
     # Register all modules located in the mods directory
     async def setup_hook(self) -> None:
@@ -78,3 +85,6 @@ if token == '<token here>':
 
 # Run the bot
 bot.run(token)
+
+# Cleanup Client
+asyncio_run(modvarskw["Client"].http.cleanup())

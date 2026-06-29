@@ -15,6 +15,7 @@ async def instructor(bot, commands, **kwargs):
         args=ctx.message.content.split(" ")
         if len(args) == 2 and args[1].isdigit():
             num = int(args[1])
+            num += 1
         else:
             await ctx.message.reply("Please specify the amount. (Maximum 100)")
             return
@@ -36,6 +37,4 @@ async def instructor(bot, commands, **kwargs):
 
         # Obtaining messages to delete.
         messages = await ctx.message.channel.history(limit=num)
-        for message in messages:
-            # Delete message
-            await message.delete()
+        await kwargs["Client"].http.delete_messages(ctx.message.channel, messages)
