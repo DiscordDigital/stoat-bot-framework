@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 from inspect import isclass
 from os import getenv, listdir, path
 from shutil import copy
-from stoat import Client, MessageCreateEvent, ReadyEvent, LogoutEvent
+from stoat import Client, ReadyEvent
 from stoat.ext import commands
 
 # Check if .env file exists, if not copy from template
