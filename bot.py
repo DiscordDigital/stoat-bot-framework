@@ -1,9 +1,16 @@
 #!/usr/bin/env python3
 from dotenv import load_dotenv
 from inspect import isclass
-from os import getenv, listdir
+from os import getenv, listdir, path
+from shutil import copy
 from stoat import Client, MessageCreateEvent, ReadyEvent
 from stoat.ext import commands
+
+# Check if .env file exists, if not copy from template
+if not path.isfile(path.dirname(__file__)+"/.env"):
+    print(".env does not exist, creating it from .env.template.")
+    copy(path.dirname(__file__)+"/.env.template", path.dirname(__file__)+"/.env")
+    exit(1)
 
 # Load .env file
 load_dotenv()
