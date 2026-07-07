@@ -41,7 +41,19 @@ The `token` and `bot_prefix` will not be included in `kwargs`.
 This variable is also exposed to all modules. It contains an instance of `stoat.Client`.\
 You can use this variable to interact with more complex endpoints, as shown in the `purge` module.
 
+### About kwargs["Categories"]
+In this variable are the display translations, as well as the keys for the gear categories, originating from categories.ini. It is used by the `help` module.
+
 ## About permissions
 Please make sure you check for permissions according to your expectations of the bots behavior. Not only do you need to check if the user running the command is allowed to do it, you also need to check if the bot has the required permissions. An example on how to do it is shown in the `purge` module.
 
 List of Permissions: https://stoatpy.readthedocs.io/en/latest/api/enums_and_flag_classes.html#stoat.Permissions
+
+## About categories
+This category system was built for the gears, you can add a category to a gear by adding the category property to the gear class. If you add a priority you can also alter the position of the category when the help command is used. If you don't use the same priority across multiple files containing gears with the same category, an average value will be determined. Commands outside of gears will be put in the misc category. If a gear has no category, it will also be put in misc.
+
+If a category is used that is not inside categories.ini, then the text of the property is displayed in the help message.
+
+A lower priority number means that it will appear first in the list. Misc has a priority of 100 by default.
+
+Check out the `purge` module as an example on how to use categories and priorities. 

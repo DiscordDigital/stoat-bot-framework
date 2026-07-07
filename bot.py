@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 from asyncio import run as asyncio_run
+from configparser import ConfigParser
 from dotenv import load_dotenv
 from inspect import isclass
 from os import getenv, listdir, path
@@ -7,7 +8,21 @@ from shutil import copy
 from stoat import Client, ReadyEvent
 from stoat.ext import commands
 
-# Check if .env file exists, if not copy from template
+# Check if categories.ini file exists, if not copy from template
+if not path.isfile(path.dirname(__file__)+"/categories.ini"):
+    print("categories.ini does not exist, creating it from categories.ini.template.")
+    copy(path.dirname(__file__)+"/categories.ini.template", path.dirname(__file__)+"/categories.ini")
+
+# Load categories.ini
+config = ConfigParser()
+config.read(path.dirname(__file__)+"/categories.ini")
+
+# Convert config into dictionary
+categories = {}
+for key in config["Categories"]:
+    categories[key] = config["Categories"][key]
+
+# Check if .env file exists, if not copy from template and exit
 if not path.isfile(path.dirname(__file__)+"/.env"):
     print(".env does not exist, creating it from .env.template.")
     copy(path.dirname(__file__)+"/.env.template", path.dirname(__file__)+"/.env")
@@ -44,6 +59,9 @@ if modvars:
 
 # Add a Client to modvarskw
 modvarskw["Client"] = Client(token=token)
+
+# Add categories to modvarskw
+modvarskw["Categories"] = categories
 
 # Create MyBot class to register all modules
 class MyBot(commands.Bot):
