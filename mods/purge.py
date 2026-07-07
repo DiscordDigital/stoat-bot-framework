@@ -2,7 +2,6 @@ async def instructor(bot, commands, **kwargs):
     class MyGear(commands.Gear, name='ModerationTools'):
         def __init__(self, bot):
             self.bot = bot
-            self.kwargs = kwargs
             self.category = 'moderation'
             self.priority = 10
 
@@ -44,6 +43,5 @@ async def instructor(bot, commands, **kwargs):
 
             # Obtaining messages to delete.
             messages = await ctx.message.channel.history(limit=num)
-            print(messages)
-            await self.kwargs["Client"].http.delete_messages(ctx.message.channel, messages)
+            await kwargs["Client"].http.delete_messages(ctx.message.channel, messages)
     await bot.add_gear(MyGear(bot))
