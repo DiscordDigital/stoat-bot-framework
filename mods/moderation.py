@@ -59,7 +59,7 @@ async def instructor(bot, commands, **kwargs):
             messages = await ctx.message.channel.history(limit=num)
             await kwargs["Client"].http.delete_messages(ctx.message.channel, messages)
         
-        @commands.command(help="Kicks a user from the server")
+        @commands.command(help="Kicks one or more users from the server")
         async def kick(self, ctx: commands.Context[commands.Bot]) -> None:
             # Check if user can kick
             if not await self.check_permission(ctx, botuser=False, permission="kick_members"):
