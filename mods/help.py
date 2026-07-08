@@ -70,7 +70,7 @@ async def instructor(bot, commands, **kwargs):
                     helptext = "No help text provided."
                 else:
                     helptext = command["help"]
-                output += command["name"] + " - " + helptext + "\n"
+                output += "**" + command["name"] + "** - " + helptext + "\n"
             
             output += "\n"
             i += 1
