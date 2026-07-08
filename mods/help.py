@@ -1,3 +1,5 @@
+from stoat import SendableEmbed
+
 async def instructor(bot, commands, **kwargs):
     @bot.command(help="Shows all commands registered in the bot")
     async def help(ctx: commands.Context[commands.Bot]) -> None:
@@ -74,4 +76,7 @@ async def instructor(bot, commands, **kwargs):
             i += 1
 
         output = output.rstrip()
-        await ctx.message.reply(output)
+
+        em = SendableEmbed(title="Help", color="#cccccc", description=output)
+
+        await ctx.message.reply("", embeds=[em], mention=False)
