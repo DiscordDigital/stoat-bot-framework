@@ -14,7 +14,7 @@ Insert the bot token into the file, and run `bot.py` again, then the bot should 
 ## About modules
 The modules require an instructor function, like this:
 ```python
-async def instructor(bot, commands, **kwargs):
+async def instructor(bot, commands, apiEvent, **kwargs):
 ```
 
 You can use `commands.Gear`, as well as bot to register events, as shown in the `onMessage`, `onMessageRename` and `onUserRemove` example mods.
