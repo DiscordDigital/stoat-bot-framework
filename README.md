@@ -57,3 +57,8 @@ If a category is used that is not inside categories.ini, then the text of the pr
 A lower priority number means that it will appear first in the list. Misc has a priority of 100 by default.
 
 Check out the `purge` module as an example on how to use categories and priorities. 
+
+## About API
+The API module can be configured to connect to a URL, which is an instance of following project https://github.com/DiscordDigital/stoat-bot-data, which is an alternate way of storing data with a MariaDB database. It also uses server side events to stream data to the bot.
+
+By default this API is optional and can be toggled with the `api_enabled` option in .env.

@@ -1,6 +1,6 @@
 from stoat import SendableEmbed
 
-async def instructor(bot, commands, **kwargs):
+async def instructor(bot, commands, apiEvent, **kwargs):
     @bot.command(help="Shows all commands registered in the bot")
     async def help(ctx: commands.Context[commands.Bot]) -> None:
         output = ""

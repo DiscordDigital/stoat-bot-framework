@@ -1,3 +1,4 @@
 .env
 categories.ini
 mods/__pycache__/
+api/__pycache__/

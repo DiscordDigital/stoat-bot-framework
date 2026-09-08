@@ -7,6 +7,10 @@ from os import getenv, listdir, path
 from shutil import copy
 from stoat import Client, ReadyEvent
 from stoat.ext import commands
+from api.event import Event as ApiEvent
+
+# apiEvent instance that will be used to handle API events
+apiEvent = ApiEvent()
 
 # Check if categories.ini file exists, if not copy from template
 if not path.isfile(path.dirname(__file__)+"/categories.ini"):
@@ -68,6 +72,10 @@ class MyBot(commands.Bot):
     # Print bot name to console
     async def on_ready(self, event: ReadyEvent) -> None:
         print(f'Logged in as {event.me.tag}!')
+        if (modvarskw["api_enabled"]):
+            print("[API] Using: " + modvarskw["api_url"])
+            apiEvent.ready = True
+
 
     # Register all modules located in the mods directory
     async def setup_hook(self) -> None:
@@ -88,7 +96,7 @@ class MyBot(commands.Bot):
                 loadMod = getattr(__import__("mods."+moduleName, fromlist=['instructor']), 'instructor')
 
                 # Call loadMod to register the module
-                await loadMod(bot, commands, **modvarskw)
+                await loadMod(bot, commands, apiEvent, **modvarskw)
 
 # Set bot prefix
 bot = MyBot(command_prefix=bot_prefix)

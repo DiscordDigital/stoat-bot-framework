@@ -1,6 +1,6 @@
 import re
 
-async def instructor(bot, commands, **kwargs):
+async def instructor(bot, commands, apiEvent, **kwargs):
     class MyGear(commands.Gear, name='ModerationTools'):
         def __init__(self, bot):
             self.bot = bot

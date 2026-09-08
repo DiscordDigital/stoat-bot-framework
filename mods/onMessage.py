@@ -1,6 +1,6 @@
 from stoat import MessageCreateEvent
 
-async def instructor(bot, commands, **kwargs):
+async def instructor(bot, commands, apiEvent, **kwargs):
     class MyGear(commands.Gear, name='MessageListener'):
         @commands.Gear.listener()
         async def on_message(self, event: MessageCreateEvent) -> None:
